@@ -66,11 +66,12 @@ while True:
                             case '1':
                                 print('')
                                 dados_sensores.extend(np.random.rand(10))
+                                print("Dados coletados: " , dados_sensores)
                                 print('Dados dos sensores coletados com sucesso!')
 
                             #Prever manutenção necessária com base nos dados gerados pelo sensor
                             case '2':
-                                threshold = 0.8
+                                threshold = 0.45
                                 print('')
                                 if np.mean(dados_sensores) > threshold:
                                     print('Manutenção recomendada.')
