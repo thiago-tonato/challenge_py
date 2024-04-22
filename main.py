@@ -30,6 +30,7 @@ while True:
             senha_cadastro = input('Digite sua senha para cadastro: ')
             senha = senha_cadastro
             cadastro = True
+            print('')
             print('Cadastro realizado!')
 
         #Login
@@ -51,6 +52,7 @@ while True:
                         print('>>>CHEVOTECH<<<')
                         print('---------------')
                         print('Bem vindo! O que deseja fazer?')
+                        print('')
                         print('1. Coletar dados dos sensores')
                         print('2. Prever manutenção')
                         print('3. Adicionar data da manutenção')
@@ -100,6 +102,7 @@ while True:
 
 
                 else:
+                    print('')
                     print('Login inválido!')
 
             else:
@@ -108,6 +111,7 @@ while True:
 
         #Sair do programa
         case 3:
+            print('')
             print('Obrigado!')
             break
 
