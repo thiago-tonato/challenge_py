@@ -68,6 +68,34 @@ def adicionar_carro():
             print("Modelo do carro não pode ser vazio.")
 
 
+# Função para editar um carro
+def editar_carro():
+    print("")
+    placa = input("Digite a placa do carro que deseja editar: ").strip().upper()
+
+    if placa in carros:
+        novo_modelo = input("Digite o novo modelo do carro: ").strip()
+        if novo_modelo:
+            carros[placa]["modelo"] = novo_modelo
+            print(f"Modelo do carro de placa {placa} atualizado para {novo_modelo}.")
+        else:
+            print("Modelo não pode ser vazio!")
+    else:
+        print(f"Carro com placa {placa} não encontrado.")
+
+
+# Função para excluir um carro
+def excluir_carro():
+    print("")
+    placa = input("Digite a placa do carro que deseja excluir: ").strip().upper()
+
+    if placa in carros:
+        del carros[placa]
+        print(f"Carro de placa {placa} excluído com sucesso.")
+    else:
+        print(f"Carro com placa {placa} não encontrado.")
+
+
 # Função para adicionar um problema a um carro existente
 def adicionar_problema():
     print("")
@@ -83,6 +111,62 @@ def adicionar_problema():
             print("O problema não pode ser vazio.")
     else:
         print(f"Carro com placa {placa} não encontrado. Por favor, adicione o carro primeiro.")
+
+
+# Função para editar um problema de um carro existente
+def editar_problema():
+    print("")
+    placa = input("Digite a placa do carro: ").strip().upper()
+
+    if placa in carros:
+        if carros[placa]["problemas"]:
+            print(f"Problemas do carro {carros[placa]['modelo']}:")
+            for i, problema in enumerate(carros[placa]["problemas"], 1):
+                print(f"{i}. {problema}")
+
+            try:
+                indice = int(input("Digite o número do problema que deseja editar: ")) - 1
+                if 0 <= indice < len(carros[placa]["problemas"]):
+                    novo_problema = input("Digite o novo problema: ").strip()
+                    if novo_problema:
+                        carros[placa]["problemas"][indice] = novo_problema
+                        print("Problema atualizado com sucesso.")
+                    else:
+                        print("O problema não pode ser vazio.")
+                else:
+                    print("Problema inválido.")
+            except ValueError:
+                print("Entrada inválida!")
+        else:
+            print("Não há problemas registrados para esse carro.")
+    else:
+        print(f"Carro com placa {placa} não encontrado.")
+
+
+# Função para excluir um problema de um carro existente
+def excluir_problema():
+    print("")
+    placa = input("Digite a placa do carro: ").strip().upper()
+
+    if placa in carros:
+        if carros[placa]["problemas"]:
+            print(f"Problemas do carro {carros[placa]['modelo']}:")
+            for i, problema in enumerate(carros[placa]["problemas"], 1):
+                print(f"{i}. {problema}")
+
+            try:
+                indice = int(input("Digite o número do problema que deseja excluir: ")) - 1
+                if 0 <= indice < len(carros[placa]["problemas"]):
+                    carros[placa]["problemas"].pop(indice)
+                    print("Problema excluído com sucesso.")
+                else:
+                    print("Problema inválido.")
+            except ValueError:
+                print("Entrada inválida!")
+        else:
+            print("Não há problemas registrados para esse carro.")
+    else:
+        print(f"Carro com placa {placa} não encontrado.")
 
 
 # Função para prever a necessidade de manutenção com base nos problemas do carro
@@ -137,6 +221,63 @@ def visualizar_historico_manutencao():
         print(f"Carro com placa {placa} não encontrado.")
 
 
+# Função para editar uma data de manutenção existente
+def editar_data_manutencao():
+    print("")
+    placa = input("Digite a placa do carro: ").strip().upper()
+
+    if placa in carros:
+        if carros[placa]["manutencoes"]:
+            print(f"Manutenções registradas para o carro {carros[placa]['modelo']}:")
+            for i, manutencao in enumerate(carros[placa]["manutencoes"], 1):
+                print(f"{i}. {manutencao}")
+
+            try:
+                indice = int(input("Digite o número da manutenção que deseja editar: ")) - 1
+                if 0 <= indice < len(carros[placa]["manutencoes"]):
+                    nova_data = input("Digite a nova data da manutenção (dd/MM/yyyy): ").strip()
+                    try:
+                        nova_data_formatada = datetime.strptime(nova_data, "%d/%m/%Y").strftime("%d/%m/%Y")
+                        carros[placa]["manutencoes"][indice] = nova_data_formatada
+                        print("Data de manutenção atualizada com sucesso.")
+                    except ValueError:
+                        print("Data inválida! Digite no formato dd/MM/yyyy.")
+                else:
+                    print("Manutenção inválida.")
+            except ValueError:
+                print("Entrada inválida!")
+        else:
+            print("Não há manutenções registradas para esse carro.")
+    else:
+        print(f"Carro com placa {placa} não encontrado.")
+
+
+# Função para excluir uma data de manutenção existente
+def excluir_data_manutencao():
+    print("")
+    placa = input("Digite a placa do carro: ").strip().upper()
+
+    if placa in carros:
+        if carros[placa]["manutencoes"]:
+            print(f"Manutenções registradas para o carro {carros[placa]['modelo']}:")
+            for i, manutencao in enumerate(carros[placa]["manutencoes"], 1):
+                print(f"{i}. {manutencao}")
+
+            try:
+                indice = int(input("Digite o número da manutenção que deseja excluir: ")) - 1
+                if 0 <= indice < len(carros[placa]["manutencoes"]):
+                    carros[placa]["manutencoes"].pop(indice)
+                    print("Manutenção excluída com sucesso.")
+                else:
+                    print("Manutenção inválida.")
+            except ValueError:
+                print("Entrada inválida!")
+        else:
+            print("Não há manutenções registradas para esse carro.")
+    else:
+        print(f"Carro com placa {placa} não encontrado.")
+
+
 # Variável para rastrear se o usuário fez cadastro
 cadastro = False
 
@@ -168,10 +309,10 @@ while True:
                     while True:
                         print("\n>>>CHEVOTECH<<<")
                         print("---------------")
-                        print("1. Adicionar carro")
-                        print("2. Adicionar problema ao carro")
+                        print("1. Gerenciar carros")
+                        print("2. Gerenciar problemas")
                         print("3. Prever manutenção")
-                        print("4. Adicionar data da manutenção")
+                        print("4. Gerenciar manutenções")
                         print("5. Histórico de manutenção")
                         print("6. Sair")
 
@@ -179,16 +320,85 @@ while True:
 
                         match opcao_menu:
                             case "1":
-                                adicionar_carro()
+                                while True:
+                                    print("\nGerenciamento de Carros")
+                                    print("-----------------------")
+                                    print("1. Adicionar carro")
+                                    print("2. Editar carro")
+                                    print("3. Excluir carro")
+                                    print("4. Voltar")
+                                    opcao_carro = input("Digite a opção desejada: ")
+
+                                    match opcao_carro:
+                                        case "1":
+                                            adicionar_carro()
+
+                                        case "2":
+                                            editar_carro()
+
+                                        case "3":
+                                            excluir_carro()
+
+                                        case "4":
+                                            break
+
+                                        case _:
+                                            print("Opção inválida!")
 
                             case "2":
-                                adicionar_problema()
+                                while True:
+                                    print("\nGerenciamento de Problemas")
+                                    print("--------------------------")
+                                    print("1. Adicionar problema")
+                                    print("2. Editar problema")
+                                    print("3. Excluir problema")
+                                    print("4. Voltar")
+                                    opcao_problema = input("Digite a opção desejada: ")
+
+                                    match opcao_problema:
+                                        case "1":
+                                            adicionar_problema()
+
+                                        case "2":
+                                            editar_problema()
+
+                                        case "3":
+                                            excluir_problema()
+
+                                        case "4":
+                                            break
+
+                                        case _:
+                                            print("Opção inválida!")
 
                             case "3":
                                 prever_manutencao()
 
                             case "4":
-                                adicionar_data_manutencao()
+                                while True:
+                                    print("\nGerenciamento de Manutenções")
+                                    print("-----------------------------")
+                                    print("1. Adicionar manutenção")
+                                    print("2. Editar manutenção")
+                                    print("3. Excluir manutenção")
+                                    print("4. Voltar")
+                                    opcao_manutencao = input("Digite a opção desejada: ")
+
+                                    match opcao_manutencao:
+                                        case "1":
+                                            adicionar_data_manutencao()
+
+                                        case "2":
+                                            editar_data_manutencao()
+
+                                        case "3":
+                                            excluir_data_manutencao()
+
+                                        case "4":
+                                            break
+
+                                        case _:
+                                            print("Opção inválida!")
 
                             case "5":
                                 visualizar_historico_manutencao()
